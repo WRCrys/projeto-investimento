@@ -20,6 +20,7 @@ class DashboardController extends Controller
     }
     
     public function index(){
+        
         return "We are in index";
     }
 
