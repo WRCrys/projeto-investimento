@@ -20,7 +20,7 @@ class DashboardController extends Controller
     }
     
     public function index(){
-        return "We are in index";
+        return 'We are in index';
     }
 
     public function auth(Request $request){
@@ -35,7 +35,7 @@ class DashboardController extends Controller
                 Auth::attempt($data, true);
 
             }else{
-                $user = $this->repository->findWhere(['email' => $request->get('username')])->frist();
+                $user = $this->repository->findWhere(['email' => $request->get('username')])->first();
                 
                 if(!$user){
                     throw new Exception("E-mail digitado inválido");
@@ -48,14 +48,12 @@ class DashboardController extends Controller
                 
             }
             
-            return redirect('user.dashboard');
+            return redirect()->route('user.dashboard');
 
         }catch(Exception $e){
             return $e->getMessage();
         }
 
-        
-        dd($request->all());
 
     }
 
