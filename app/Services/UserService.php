@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use App\Repositories\Validators\UserValidator;
+use App\Validators\UserValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Execptions\ValidatorException;
+use Illuminate\Database\QueryException;
+use Exception;
 
 
 /**
@@ -21,7 +25,29 @@ class UserService
 
   }
 
-  public function store(){
+  public function store($data){
+    /*
+    * Method of user add
+    */
+
+    try{
+
+        $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+        $usuario = $this->repository->create($data);
+
+        return [
+            'success'   => true,
+            'messages'  => "Usuário cadastrado",
+            'data'      => $usuario
+        ];
+
+    } catch(Exception $e){
+        return [
+            'success' => false,
+            'message' => $e->getMessage(),
+        ];
+    }
 
   }
 

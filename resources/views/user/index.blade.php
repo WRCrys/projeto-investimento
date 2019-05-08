@@ -7,7 +7,12 @@
 @endsection
 
 @section('conteudo-view')
-    {!! Form::open(['method' => 'post', 'class' => 'form-padrao']) !!}
+
+    @if(session('success'))
+        <h3>{{ session('success')['messages'] }}</h3>
+    @endif
+
+    {!! Form::open(['route' => 'user.store', 'method' => 'post', 'class' => 'form-padrao']) !!}
     @include('templates.formulario.input', ['input' => 'cpf', 'attributes' => ['placeholder' => 'CPF']])
     @include('templates.formulario.input', ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
     @include('templates.formulario.input', ['input' => 'phone', 'attributes' => ['placeholder' => 'Telefone']])
