@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['uses' => 'Controller@homepage']);
+Route::get('/', ['uses' => 'Controller@fazerlogin']);
 
 Route::get('/cadastro', ['uses' => 'Controller@cadastrar']);
 
