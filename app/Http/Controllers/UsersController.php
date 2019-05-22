@@ -76,7 +76,7 @@ class UsersController extends Controller
             'messages'  => $request['messages']
         ]);
 
-        return view('user.index', ['usuario' => $usuario]);
+        return \redirect()->route('user.index');
     }
 
     /**
@@ -167,16 +167,15 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $request = $this->service->destroy($id);
 
-        if (request()->wantsJson()) {
+        $usuario = $request['success'] ? $request['data'] : null;
 
-            return response()->json([
-                'message' => 'User deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
+        session()->flash('success', [
+            'success'   => $request['success'],
+            'messages'  => $request['messages']
+        ]);
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return \redirect()->route('user.index');
     }
 }
